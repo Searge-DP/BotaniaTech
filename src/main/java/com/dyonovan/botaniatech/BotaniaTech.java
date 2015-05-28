@@ -39,7 +39,9 @@ public class BotaniaTech {
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event) { }
+    public void init(FMLInitializationEvent event) {
+        proxy.init();
+    }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt) {}
