@@ -181,15 +181,6 @@
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="" />
-  </component>
-  <component name="libraryTable">
-    <library name="Botania r1.6-190-deobf">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/libs/Botania r1.6-190-deobf.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>
