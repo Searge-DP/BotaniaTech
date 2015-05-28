@@ -1,0 +1,16 @@
+[
+{
+"modid": "botaniatech",
+"name": "BotaniaTech",
+"description": "Addon for Botania Mod",
+"version": "${version}",
+"mcversion": "${mcversion}",
+"url": "www.dyonovan.com",
+"updateUrl": "",
+"authorList": ["Dyonovan"],
+"credits": "Vazkii",
+"logoFile": "",
+"screenshots": [],
+"dependencies": []
+}
+]
