@@ -28,15 +28,22 @@ public class TileManaCrusher extends BaseInventoryTile implements ISidedInventor
 
         if (getStackInSlot(INV_INPUT) != null && mana <= 0) {
             requireMana = MANA_USAGE;
+        }
+        if (mana > 0 && getStackInSlot(INV_INPUT) == null) {
+            reset();
         } else if (mana >= MANA_USAGE) {
-            mana = 0;
-            requireMana = 0;
+            reset();
             decrStackSize(INV_INPUT, 1);
             EntityItem outputItem = new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5,
                     new ItemStack(Items.iron_ingot, 2));
             worldObj.spawnEntityInWorld(outputItem);
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
+    }
+
+    private void reset() {
+        mana = 0;
+        requireMana = 0;
     }
 
     @Override
@@ -102,5 +109,4 @@ public class TileManaCrusher extends BaseInventoryTile implements ISidedInventor
         requireMana = tag.getInteger("RequiredMana");
 
     }
-
 }
