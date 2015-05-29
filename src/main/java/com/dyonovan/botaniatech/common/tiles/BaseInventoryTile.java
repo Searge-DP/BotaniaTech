@@ -6,16 +6,20 @@ import net.minecraft.item.ItemStack;
 
 public class BaseInventoryTile extends BaseTile implements IInventory {
 
-    protected ItemStack[] iSlots = new ItemStack[getSizeInventory()];
+    protected Inventory inventory;
+
+    public BaseInventoryTile() {
+
+    }
 
     @Override
     public int getSizeInventory() {
-        return 0;
+        return inventory.getSizeInventory();
     }
 
     @Override
     public ItemStack getStackInSlot(int slot) {
-        return iSlots[slot];
+        return inventory.getStackInSlot(slot);
     }
 
     @Override
@@ -45,11 +49,7 @@ public class BaseInventoryTile extends BaseTile implements IInventory {
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack stack) {
-        iSlots[slot] = stack;
-        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
-            stack.stackSize = getInventoryStackLimit();
-        }
-        markDirty();
+        inventory.setStackInSlot(stack, slot);
     }
 
     @Override
@@ -84,6 +84,6 @@ public class BaseInventoryTile extends BaseTile implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
-        return iSlots[slot] == null;
+        return false;
     }
 }
