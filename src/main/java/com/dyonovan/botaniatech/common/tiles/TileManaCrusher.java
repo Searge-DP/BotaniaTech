@@ -1,5 +1,6 @@
 package com.dyonovan.botaniatech.common.tiles;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
@@ -13,11 +14,13 @@ public class TileManaCrusher extends BaseInventoryTile implements ISidedInventor
     public static final int MANA_USAGE = 8000;
 
     public int mana, requireMana;
+    public EntityItem item;
 
     public TileManaCrusher() {
         inventory = new Inventory(1);
         requireMana = 0;
         mana = 0;
+        item = null;
     }
 
     @Override
@@ -44,6 +47,7 @@ public class TileManaCrusher extends BaseInventoryTile implements ISidedInventor
     private void reset() {
         mana = 0;
         requireMana = 0;
+        item = null;
     }
 
     @Override
@@ -98,6 +102,9 @@ public class TileManaCrusher extends BaseInventoryTile implements ISidedInventor
         inventory.writeToNBT(tag, ":main");
         tag.setInteger("Mana", mana);
         tag.setInteger("RequiredMana", requireMana);
+        if (item != null) {
+            tag.setString("RenderItem", getStackInSlot(INV_INPUT).getUnlocalizedName());
+        }
     }
 
     @Override
@@ -107,6 +114,9 @@ public class TileManaCrusher extends BaseInventoryTile implements ISidedInventor
         inventory.readFromNBT(tag, this, ":main");
         mana = tag.getInteger("Mana");
         requireMana = tag.getInteger("RequiredMana");
-
+        if (tag.hasKey("RenderItem") && item == null) {
+            item = new EntityItem(getWorldObj(), xCoord, yCoord,
+                    zCoord, new ItemStack(Block.getBlockFromName(tag.getString("RenderItem"))));
+        }
     }
 }

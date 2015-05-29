@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -28,10 +29,15 @@ public class BlockManaCrusher extends BaseBlock {
             if (tile.getStackInSlot(TileManaCrusher.INV_INPUT) == null) {
                 tile.setInventorySlotContents(TileManaCrusher.INV_INPUT, new ItemStack(player.getHeldItem().getItem(), 1));
                 player.inventory.consumeInventoryItem(player.getHeldItem().getItem());
+                tile.item = new EntityItem(tile.getWorldObj(), tile.xCoord, tile.yCoord,
+                        tile.zCoord, tile.getStackInSlot(TileManaCrusher.INV_INPUT));
             }
         } else if (player.getHeldItem() == null && tile.getStackInSlot(TileManaCrusher.INV_INPUT) != null) {
             boolean success = player.inventory.addItemStackToInventory(new ItemStack(tile.getStackInSlot(TileManaCrusher.INV_INPUT).getItem(), 1));
-            if (success) tile.setInventorySlotContents(TileManaCrusher.INV_INPUT, null);
+            if (success) {
+                tile.setInventorySlotContents(TileManaCrusher.INV_INPUT, null);
+                tile.item = null;
+            }
         }
         return true;
     }

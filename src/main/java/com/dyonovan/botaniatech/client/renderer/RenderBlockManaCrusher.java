@@ -15,6 +15,7 @@ public class RenderBlockManaCrusher extends TileEntitySpecialRenderer {
     public static final ResourceLocation texture = new ResourceLocation(Constants.MODID + ":textures/models/blockManaCrusher.png");
 
     private ModelBlockManaCrusher model;
+    private float rotMod = 0.0F;
 
     public RenderBlockManaCrusher() {
         this.model = new ModelBlockManaCrusher();
@@ -33,22 +34,18 @@ public class RenderBlockManaCrusher extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
 
         //Render Item on Top
-        //TODO fix rendering of item on top. Slower
         TileManaCrusher tile = (TileManaCrusher) tileentity;
 
         if (tile.getStackInSlot(TileManaCrusher.INV_INPUT) != null) {
-            float rotMod = 0.0F;
             rotMod += ((rotMod % 360) /360) + 1;
             GL11.glPushMatrix();
             GL11.glDisable(GL11.GL_CULL_FACE);
-            GL11.glTranslatef((float) x + 0.5F, (float) y + 1.15F, (float) z + 0.5F);
+            GL11.glTranslatef((float) x + 0.5F, (float) y + 0.75F, (float) z + 0.5F);
             GL11.glRotatef(360, 0, 1, 1);
             GL11.glRotatef(rotMod, 0.0F, 1.0F, 0.0F);
-            RenderManager.instance.renderEntityWithPosYaw(new EntityItem(tile.getWorldObj(), tile.xCoord, tile.yCoord,
-                    tile.zCoord, tile.getStackInSlot(TileManaCrusher.INV_INPUT)), 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+            RenderManager.instance.renderEntityWithPosYaw(tile.item, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             GL11.glPopMatrix();
-
         }
     }
 }
